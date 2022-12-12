@@ -12,15 +12,59 @@ const mainGrid = new Array(9).fill("empty")
 
 function App() {
 
-  const [hasCross, sethasCross] = useState(false)
+  const [hasCross, sethasCross] = useState(false) // State to check if it has Cross Icon or not
+  const [winnerMessage, setwinnerMessage] = useState("")
+
+
+  // Check if game is won or draw before every turn
+  const isGameWon = ()=> {
+    
+    if(mainGrid[0] !== "empty" && mainGrid[0] === mainGrid[1] && mainGrid[0] === mainGrid[2]){
+      setwinnerMessage(`${mainGrid[0]} has won`); // all 3 in 1st row has same Icon
+
+    }else if(mainGrid[3] !== "empty" && mainGrid[3] === mainGrid[4] && mainGrid[3] === mainGrid[5]){
+      setwinnerMessage(`${mainGrid[3]} has won`); // all 3 in 2nd row has same Icon
+
+    }else if(mainGrid[6] !== "empty" && mainGrid[6] === mainGrid[7] && mainGrid[6] === mainGrid[8]){
+      setwinnerMessage(`${mainGrid[6]} has won`); // all 3 in 3rd row has same Icon
+
+    }else if(mainGrid[0] !== "empty" && mainGrid[0] === mainGrid[3] && mainGrid[0] === mainGrid[6]){
+      setwinnerMessage(`${mainGrid[0]} has won`); // all 3 in 1st column has same Icon
+
+    }else if(mainGrid[1] !== "empty" && mainGrid[1] === mainGrid[4] && mainGrid[1] === mainGrid[7]){
+      setwinnerMessage(`${mainGrid[1]} has won`); // all 3 in 2nd column has same Icon
+
+    }else if(mainGrid[2] !== "empty" && mainGrid[2] === mainGrid[5] && mainGrid[2] === mainGrid[8]){
+      setwinnerMessage(`${mainGrid[2]} has won`); // all 3 in 3rd column has same Icon
+
+    }else if(mainGrid[0] !== "empty" && mainGrid[0] === mainGrid[4] && mainGrid[0] === mainGrid[8]){
+      setwinnerMessage(`${mainGrid[0]} has won`); // all 3 in left to right diagonal has same Icon
+
+    }
+    else if(mainGrid[2] !== "empty" && mainGrid[0] === mainGrid[4] && mainGrid[0] === mainGrid[6]){
+      setwinnerMessage(`${mainGrid[2]} has won`); // all 3 in right to left diagonal has same Icon
+
+    }
+
+    if(!mainGrid.includes("empty")){
+      setwinnerMessage("Gram draw");
+    }
+  }
+
+
+
+
+
 
   const changeGrid = index=>{
     if(mainGrid[index] === "empty"){
-      mainGrid[index] = hasCross ? "Circle" : "Cross";
+      mainGrid[index] = hasCross ? "Cross" : "Circle";
       sethasCross(!hasCross)
     }else{
       console.log('else');
     }
+
+    isGameWon();
   }
   return (
     <Container className="p-5">
