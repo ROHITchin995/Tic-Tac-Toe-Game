@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
-import { Card, CardBody, Container } from 'reactstrap';
+import { Card, CardBody, Container, Button } from 'reactstrap';
 import Icon from "./components/Icon";
 import { useState } from "react";
 
@@ -51,7 +51,12 @@ function App() {
     }
   }
 
-
+  // reload complete game
+  const reloadGame = ()=>{
+    sethasCross(false);
+    setwinnerMessage("");
+    mainGrid.fill("empty",0,9)
+  }
 
 
 
@@ -68,6 +73,16 @@ function App() {
   }
   return (
     <Container className="p-5">
+      {
+        winnerMessage? (
+          <Button onClick={reloadGame}> reload Game</Button>
+        ):(
+          <Button> continue Game</Button>
+        )
+      }
+
+
+
       {/* Top message line */}
       <h1 className="text-center text-light">
        {hasCross? "Cross": "Circle"} turns
