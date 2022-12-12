@@ -54,7 +54,6 @@ function App() {
 
   // reload complete game
   const reloadGame = ()=>{
-    console.log(mainGrid);
     sethasCross(false);
     setwinnerMessage("");
     mainGrid.fill("empty",0,9)
