@@ -13,3 +13,7 @@ body{
   grid-gap: 10px;
   grid-template-columns: 1fr 1fr 1fr;
 }
+.icons{
+  font-size: 35px;
+  color: rgb(0, 0, 0);
+}
