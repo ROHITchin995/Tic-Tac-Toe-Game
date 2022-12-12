@@ -3,17 +3,19 @@ import './App.css';
 import { Card, CardBody, Container, Button, Col, Row } from 'reactstrap';
 import Icon from "./components/Icon";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-
+// Defining grid array
 const mainGrid = new Array(9).fill("empty")
-
-
 
 
 function App() {
 
   const [hasCross, sethasCross] = useState(false) // State to check if it has Cross Icon or not
   const [winnerMessage, setwinnerMessage] = useState("")
+
+
 
 
   // Check if game is won or draw before every turn
@@ -41,9 +43,8 @@ function App() {
       setwinnerMessage(`${mainGrid[0]} has won`); // all 3 in left to right diagonal has same Icon
 
     }
-    else if(mainGrid[2] !== "empty" && mainGrid[0] === mainGrid[4] && mainGrid[0] === mainGrid[6]){
+    else if(mainGrid[2] !== "empty" && mainGrid[2] === mainGrid[4] && mainGrid[2] === mainGrid[6]){
       setwinnerMessage(`${mainGrid[2]} has won`); // all 3 in right to left diagonal has same Icon
-
     }
 
     if(!mainGrid.includes("empty")){
@@ -53,6 +54,7 @@ function App() {
 
   // reload complete game
   const reloadGame = ()=>{
+    console.log(mainGrid);
     sethasCross(false);
     setwinnerMessage("");
     mainGrid.fill("empty",0,9)
@@ -66,13 +68,14 @@ function App() {
       mainGrid[index] = hasCross ? "Cross" : "Circle";
       sethasCross(!hasCross)
     }else{
-      console.log('else');
+      return toast.error("Already filled")
     }
 
     isGameWon();
   }
   return (
     <Container className="p-5">
+      <ToastContainer position="top-right" />
       <Row>
         <Col md={6} className="offset-md-3">
       {
