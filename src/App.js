@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
-import { Card, CardBody, Container, Button } from 'reactstrap';
+import { Card, CardBody, Container, Button, Col, Row } from 'reactstrap';
 import Icon from "./components/Icon";
 import { useState } from "react";
 
@@ -47,7 +47,7 @@ function App() {
     }
 
     if(!mainGrid.includes("empty")){
-      setwinnerMessage("Gram draw");
+      setwinnerMessage("Game draw");
     }
   }
 
@@ -73,20 +73,24 @@ function App() {
   }
   return (
     <Container className="p-5">
+      <Row>
+        <Col md={6} className="offset-md-3">
       {
         winnerMessage? (
-          <Button onClick={reloadGame}> reload Game</Button>
+          <div className="mb-2 mt-2">
+              <h1 className="text-light text-uppercase text-center">
+                {winnerMessage}
+              </h1>
+           {/* reload game when all grids are filled */}
+          <Button color="light" className="my-2" block onClick={reloadGame}> Reload game</Button> 
+          </div>
         ):(
-          <Button> continue Game</Button>
+          //  Top message line 
+      <h1 className="text-center text-light">
+      {hasCross? "Cross": "Circle"} turns
+     </h1>
         )
       }
-
-
-
-      {/* Top message line */}
-      <h1 className="text-center text-light">
-       {hasCross? "Cross": "Circle"} turns
-      </h1>
 
       {/* Play area */}
      <div className="grid">
@@ -99,8 +103,10 @@ function App() {
         </Card>
      ))}
      
-      
-        </div>
+      </div>
+
+      </Col>
+      </Row>
     </Container>
   );
 }
